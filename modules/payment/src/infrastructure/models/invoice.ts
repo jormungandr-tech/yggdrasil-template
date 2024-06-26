@@ -1,4 +1,4 @@
-import {index, numeric, pgEnum, pgTable, text, timestamp, uuid, varchar} from 'drizzle-orm/pg-core';
+import {index, numeric, pgEnum, pgTable, text, timestamp, uuid} from 'drizzle-orm/pg-core';
 import {ordersFunc} from './orders';
 import {TaskOption, tryCatch} from 'fp-ts/TaskOption';
 import {Postgres} from '../db';
