@@ -1,6 +1,6 @@
 import {boolean, pgTable, text, timestamp, uniqueIndex, varchar} from 'drizzle-orm/pg-core';
 
-export const phoneProvider = pgTable('phone_provider',{
+export const phoneProvider = pgTable('ygg_auth__phone_provider',{
   phone: varchar('phone', {length: 32}).unique().primaryKey(),
   passwordHash: text('password_hash').notNull(),
   authKey: varchar('auth_key', {length: 64}).notNull().unique(),

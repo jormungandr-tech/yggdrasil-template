@@ -4,7 +4,7 @@ import {TaskOption, tryCatch} from 'fp-ts/TaskOption';
 import {eq} from 'drizzle-orm';
 import {UserBalanceRecord} from '../../application/dto';
 
-export const userBalance = pgTable('user_balance', {
+export const userBalance = pgTable('ygg_payment__user_balance', {
   userId: uuid('user_id').notNull().primaryKey(),
   availableBalance: numeric('available_balance').notNull().default('0'),
   reservedBalance: numeric('reserved_balance').notNull().default('0'),

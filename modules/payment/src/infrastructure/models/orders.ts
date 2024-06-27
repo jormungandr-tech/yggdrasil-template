@@ -4,9 +4,9 @@ import {OrderRecord} from '../../application/dto';
 import {TaskOption, tryCatch} from 'fp-ts/TaskOption';
 import {eq} from 'drizzle-orm';
 
-export const orderStatusEnum = pgEnum('order_status', ['pending', 'paid', 'completed', 'cancelled'])
+export const orderStatusEnum = pgEnum('ygg_payment__order_status', ['pending', 'paid', 'completed', 'cancelled'])
 
-export const ordersFunc = <C>() => pgTable('orders', {
+export const ordersFunc = <C>() => pgTable('ygg_payment__orders', {
   orderId: uuid('order_id').notNull().primaryKey().defaultRandom(),
   content: json('content').notNull().$type<C>(),
   status: orderStatusEnum('status').notNull().default('pending'),

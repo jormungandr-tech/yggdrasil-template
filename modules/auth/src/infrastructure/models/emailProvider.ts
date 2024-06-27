@@ -4,7 +4,7 @@ import {Postgres} from '../db';
 import {eq} from 'drizzle-orm';
 import {TaskOption, tryCatch} from 'fp-ts/TaskOption';
 
-export const emailProvider = pgTable('email_provider', {
+export const emailProvider = pgTable('ygg_auth__email_provider', {
   email: varchar('email', {length: 512}).unique().primaryKey(),
   passwordHash: text('password_hash').notNull(),
   authKey: uuid('auth_key').notNull().unique().defaultRandom(),

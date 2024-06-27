@@ -4,7 +4,7 @@ import {UserAuthRecord} from '../../application/dto';
 import {TaskOption, tryCatch} from 'fp-ts/TaskOption';
 import {and, eq} from 'drizzle-orm';
 
-export const userAuthPair = pgTable('user_auth_pair', {
+export const userAuthPair = pgTable('ygg_auth__user_auth_pair', {
   authProvider: varchar('auth_provider', {length: 32}).notNull(),
   authKey: varchar('auth_key', {length: 256}).notNull(),
   userId: uuid('user_id').notNull(),

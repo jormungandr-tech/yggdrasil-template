@@ -11,7 +11,7 @@ export const userBalanceChangeTypeEnum = pgEnum(
   ]
 )
 
-export const userBalanceChange = pgTable('user_balance_change', {
+export const userBalanceChange = pgTable('ygg_payment__user_balance_change', {
   id: serial('id').primaryKey(),
   userId: uuid('user_id').notNull(),
   amount: numeric('amount').notNull(),
