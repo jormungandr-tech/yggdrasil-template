@@ -6,11 +6,11 @@ export {EventConsume} from './application/consumer';
 
 type ModuleInterface = UtilsFunctions & DatabaseController;
 
-const module: YggdrasilModule<ModuleInterface> = ({db}) => {
+const schedule: YggdrasilModule<ModuleInterface> = ({db}) => {
   return {
     ...createDatabaseController(db),
     ...getUtilsFunctions()
   }
 }
 
-export default module;
+export default schedule;
