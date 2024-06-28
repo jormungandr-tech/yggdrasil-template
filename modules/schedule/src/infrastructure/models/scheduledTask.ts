@@ -28,7 +28,7 @@ export function insertScheduledTask<D extends Postgres>(db: D, time: Date, paylo
   });
 }
 
-export function findScheduledTaskById<D extends Postgres, Payload>(db: D, id: number): TaskOption<ScheduledEvent<Payload>> {
+export function findScheduledTaskById<D extends Postgres, Payload>(db: D, id: number): TaskOption<ScheduledEvent<string, Payload>> {
   return tryCatch(async () => {
     const result = await db
       .select()
@@ -96,7 +96,7 @@ export function updateLastConsumedAt<D extends Postgres>(db: D, time: Date): Tas
   });
 }
 
-export function getTimeoutEvents<D extends Postgres>(db: D, from: Date, to: Date): TaskOption<ScheduledEvent<unknown>[]> {
+export function getTimeoutEvents<D extends Postgres>(db: D, from: Date, to: Date): TaskOption<ScheduledEvent<string, unknown>[]> {
   return tryCatch(async () => {
     const result = await db
       .select()

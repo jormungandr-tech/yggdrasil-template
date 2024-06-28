@@ -1,17 +1,14 @@
-export interface ScheduledEvent<Payload> {
+export interface ScheduledEvent<Consumer extends string, Payload> {
   id: number;
   time: Date;
   payload: Payload;
   consumed: boolean;
-  consumer: string;
+  consumer: Consumer;
   createdAt: Date;
 }
 
-export interface ScheduledEventInDb extends ScheduledEvent<unknown> {}
+export interface ScheduledEventInDb extends ScheduledEvent<string, unknown> {}
 
 export const MAGIC_EVENT_TIMESTAMP = 114514;
 
-export interface MagicEvent extends ScheduledEventInDb {
-  consumer: "__preserved/last_consumed_at"
-  payload: number;
-}
+export interface MagicEvent extends ScheduledEvent<'__preserved/last_consumed_at', number> {}
