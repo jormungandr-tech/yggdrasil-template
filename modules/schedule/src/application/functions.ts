@@ -11,6 +11,7 @@ import {
   initialMagicEvent,
   insertScheduledTask, setEventConsumed, updateLastConsumedAt,
 } from '../infrastructure/models/scheduledTask';
+import {downcastDbEvent} from './downcast';
 
 export interface ScheduledTaskToAdd {
   time: Date;
@@ -49,5 +50,11 @@ export function createDatabaseController(db: DatabaseAccessor): DatabaseControll
     getTimeoutEvents: (from: Date, to: Date) => getTimeoutEvents(db(), from, to),
     setEventConsumed: (id: number) => setEventConsumed(db(), id),
     deleteEventById: (id: number) => deleteEventById(db(), id),
+  }
+}
+
+export function getUtilsFunctions(): UtilsFunctions {
+  return {
+    downcastDbEvent
   }
 }
