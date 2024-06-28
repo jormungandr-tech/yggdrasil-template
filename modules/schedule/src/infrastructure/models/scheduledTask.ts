@@ -1,5 +1,5 @@
 import {boolean, index, pgTable, serial, text, timestamp} from 'drizzle-orm/pg-core';
-import {Postgres} from '../db';
+import {Postgres} from '@yggdrasil-template/base';
 import {TaskOption, tryCatch} from 'fp-ts/TaskOption';
 import {MAGIC_EVENT_TIMESTAMP, ScheduledEvent} from '../../application/dto';
 import {and, eq, gte, lte} from 'drizzle-orm';

@@ -9,11 +9,8 @@
   "keywords": [],
   "author": "",
   "dependencies": {
+    "@yggdrasil-template/base": "^0.1.0",
     "drizzle-orm": "^0.31.2",
-    "fp-ts": "^2.16.6",
-    "postgres": "^3.4.4"
-  },
-  "devDependencies": {
-    "drizzle-kit": "^0.22.7"
+    "fp-ts": "^2.16.6"
   }
 }
