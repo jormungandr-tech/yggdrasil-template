@@ -4,11 +4,14 @@
   "description": "This module defines what function yggdrasil modules should have.",
   "license": "LGPL-3.0-or-later",
   "main": "src/index.ts",
-  "keywords": ["yggdrasil-template"],
+  "keywords": [
+    "yggdrasil-template"
+  ],
   "author": "jormungandr-tech",
   "repository": "https://github.com/jormungandr-tech/yggdrasil-template",
   "dependencies": {
     "drizzle-orm": "^0.31.2",
-    "fp-ts": "^2.16.6"
+    "fp-ts": "^2.16.6",
+    "user": "^0.0.0"
   }
 }
