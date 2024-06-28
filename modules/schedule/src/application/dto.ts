@@ -11,4 +11,4 @@ export interface ScheduledEventInDb extends ScheduledEvent<string, unknown> {}
 
 export const MAGIC_EVENT_TIMESTAMP = 114514;
 
-export interface MagicEvent extends ScheduledEvent<'__preserved/last_consumed_at', number> {}
+export declare const MAGIC_EVENT: ScheduledEvent<'__preserved/last_consumed_at', number>;

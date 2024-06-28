@@ -1,7 +1,7 @@
 import {boolean, index, pgTable, serial, text, timestamp} from 'drizzle-orm/pg-core';
 import {Postgres} from '@yggdrasil-template/base';
 import {TaskOption, tryCatch} from 'fp-ts/TaskOption';
-import {MAGIC_EVENT_TIMESTAMP, ScheduledEvent} from '../../application/dto';
+import {MAGIC_EVENT_TIMESTAMP, ScheduledEventInDb} from '../../application/dto';
 import {and, eq, gte, lte} from 'drizzle-orm';
 
 export const scheduledTask = pgTable('ygg_schedule__task', {
@@ -28,7 +28,7 @@ export function insertScheduledTask<D extends Postgres>(db: D, time: Date, paylo
   });
 }
 
-export function findScheduledTaskById<D extends Postgres, Payload>(db: D, id: number): TaskOption<ScheduledEvent<string, Payload>> {
+export function findScheduledTaskById<D extends Postgres>(db: D, id: number): TaskOption<ScheduledEventInDb> {
   return tryCatch(async () => {
     const result = await db
       .select()
@@ -39,15 +39,7 @@ export function findScheduledTaskById<D extends Postgres, Payload>(db: D, id: nu
     if (result.length === 0) {
       return Promise.reject('Scheduled task not found');
     } else {
-      const one = result[0];
-      return {
-        id: one.id,
-        time: one.time,
-        payload: JSON.parse(one.payload) as Payload,
-        consumed: one.consumed,
-        consumer: one.consumer,
-        createdAt: one.createdAt,
-      }
+      return result[0]
     }
   });
 }
@@ -96,7 +88,7 @@ export function updateLastConsumedAt<D extends Postgres>(db: D, time: Date): Tas
   });
 }
 
-export function getTimeoutEvents<D extends Postgres>(db: D, from: Date, to: Date): TaskOption<ScheduledEvent<string, unknown>[]> {
+export function getTimeoutEvents<D extends Postgres>(db: D, from: Date, to: Date): TaskOption<ScheduledEventInDb[]> {
   return tryCatch(async () => {
     const result = await db
       .select()
