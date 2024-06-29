@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@yggdrasil-template/base':
-        specifier: ^0.1.0
-        version: 0.1.0(postgres@3.4.4)
+        specifier: ^0.1.1
+        version: 0.1.1(postgres@3.4.4)
       drizzle-orm:
         specifier: ^0.31.2
         version: 0.31.2(postgres@3.4.4)
@@ -20,8 +20,12 @@ importers:
 
 packages:
 
-  '@yggdrasil-template/base@0.1.0':
-    resolution: {integrity: sha512-3VRJFqX270pUizrTUDLV9JkLnxPdWBsHZT94HjT0WTBSZTMcU9a4q4wftvSME1+mBtcpz3q/Dr8X4qgYXIhllw==}
+  '@yggdrasil-template/base@0.1.1':
+    resolution: {integrity: sha512-g2niHaIHTDe5kwxqQ4c+rCen+XC4L9gkqHCjbo73zVWG8BonGYhEep3y9P5HD+zQWJtEm4+LPkzB0RuLomIGKQ==}
+
+  chalk@5.3.0:
+    resolution: {integrity: sha512-dLitG79d+GV1Nb/VYcCDFivJeK1hiukt9QjRNVOsUtTy1rR1YJsmpGGTZ3qJos+uw7WmWF4wUwBd9jxjocFC2w==}
+    engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
 
   drizzle-orm@0.31.2:
     resolution: {integrity: sha512-QnenevbnnAzmbNzQwbhklvIYrDE8YER8K7kSrAWQSV1YvFCdSQPzj+jzqRdTSsV2cDqSpQ0NXGyL1G9I43LDLg==}
@@ -115,8 +119,9 @@ packages:
 
 snapshots:
 
-  '@yggdrasil-template/base@0.1.0(postgres@3.4.4)':
+  '@yggdrasil-template/base@0.1.1(postgres@3.4.4)':
     dependencies:
+      chalk: 5.3.0
       drizzle-orm: 0.31.2(postgres@3.4.4)
       fp-ts: 2.16.6
     transitivePeerDependencies:
@@ -146,6 +151,8 @@ snapshots:
       - react
       - sql.js
       - sqlite3
+
+  chalk@5.3.0: {}
 
   drizzle-orm@0.31.2(postgres@3.4.4):
     optionalDependencies:

@@ -57,7 +57,7 @@ export function initialMagicEvent<D extends Postgres>(db: D): TaskOption<void> {
   });
 }
 
-export function getLastConsumedAt<D extends Postgres>(db: D): TaskOption<Date> {
+export function getLastConsumedAt<D extends Postgres>(db: D): TaskOption<Date | null> {
   return tryCatch(async () => {
     const result = await db
       .select()
@@ -66,7 +66,7 @@ export function getLastConsumedAt<D extends Postgres>(db: D): TaskOption<Date> {
         eq(scheduledTask.time, new Date(MAGIC_EVENT_TIMESTAMP)),
       );
     if (result.length === 0) {
-      return Promise.reject('Magic event not found');
+      return null;
     } else {
       const timestamp = parseInt(result[0].payload);
       return new Date(timestamp);
@@ -88,7 +88,7 @@ export function updateLastConsumedAt<D extends Postgres>(db: D, time: Date): Tas
   });
 }
 
-export function getTimeoutEvents<D extends Postgres>(db: D, from: Date, to: Date): TaskOption<ScheduledEventInDb[]> {
+export function getEventsInTime<D extends Postgres>(db: D, from: Date, to: Date): TaskOption<ScheduledEventInDb[]> {
   return tryCatch(async () => {
     const result = await db
       .select()

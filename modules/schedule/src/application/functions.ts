@@ -7,7 +7,7 @@ import {DatabaseAccessor} from "@yggdrasil-template/base"
 import {
   deleteEventById,
   findScheduledTaskById,
-  getLastConsumedAt, getTimeoutEvents,
+  getLastConsumedAt, getEventsInTime,
   initialMagicEvent,
   insertScheduledTask, setEventConsumed, setEventsConsumed, updateLastConsumedAt,
 } from '../infrastructure/models/scheduledTask';
@@ -33,9 +33,9 @@ export interface DatabaseController {
   insertScheduledTask: (event: ScheduledTaskToAdd) => TaskOption<void>;
   findScheduledTaskById: (id: number) => TaskOption<ScheduledEventInDb>;
   initialMagicEvent: () => TaskOption<void>;
-  getLastConsumedAt: () => TaskOption<Date>;
+  getLastConsumedAt: () => TaskOption<Date | null>;
   updateLastConsumedAt: (time: Date) => TaskOption<void>;
-  getTimeoutEvents: (from: Date, to: Date) => TaskOption<ScheduledEventInDb[]>;
+  getEventsInTime: (from: Date, to: Date) => TaskOption<ScheduledEventInDb[]>;
   setEventConsumed: (id: number, consumed: boolean) => TaskOption<void>;
   setEventsConsumed: (ids: number[], consumed: boolean) => TaskOption<void>;
   deleteEventById: (id: number) => TaskOption<void>;
@@ -48,7 +48,7 @@ export function createDatabaseController(db: DatabaseAccessor): DatabaseControll
     initialMagicEvent: () => initialMagicEvent(db()),
     getLastConsumedAt: () => getLastConsumedAt(db()),
     updateLastConsumedAt: (time: Date) => updateLastConsumedAt(db(), time),
-    getTimeoutEvents: (from: Date, to: Date) => getTimeoutEvents(db(), from, to),
+    getEventsInTime: (from: Date, to: Date) => getEventsInTime(db(), from, to),
     setEventConsumed: (id, consumed) => setEventConsumed(db(), id, consumed),
     setEventsConsumed: (ids, consumed) => setEventsConsumed(db(), ids, consumed),
     deleteEventById: (id) => deleteEventById(db(), id),
