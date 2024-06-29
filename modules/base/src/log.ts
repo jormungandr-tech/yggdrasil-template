@@ -1,28 +1,28 @@
 import chalk from 'chalk';
 
-export function info(message: string): void {
+export function info(moduleName: string, message: string): void {
   const time = new Date().toISOString();
   console.info(
     time +
     chalk.green(`INFO`) +
-    ` ${message}`
+    ` [${moduleName}] ${message}`
   )
 }
 
-export function error(message: string): void {
+export function error(moduleName: string, message: string): void {
   const time = new Date().toISOString();
   console.error(
     time +
     chalk.red(`ERROR`) +
-    ` ${message}`
+    ` [${moduleName}] ${message}`
   )
 }
 
-export function warn(message: string): void {
+export function warn(moduleName: string, message: string): void {
   const time = new Date().toISOString();
   console.warn(
     time +
     chalk.yellow(`WARN`) +
-    ` ${message}`
+    ` [${moduleName}] ${message}`
   )
 }
