@@ -1,13 +1,14 @@
 {
   "name": "@yggdrasil-template/schedule",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
+  "version": "0.1.0",
+  "description": "Schedule an event to be executed at a specific time.",
+  "license": "GPL-3.0",
+  "main": "src/index.ts",
+  "keywords": [
+    "yggdrasil-template"
+  ],
+  "author": "jormungandr-tech",
+  "repository": "https://github.com/jormungandr-tech/yggdrasil-template",
   "dependencies": {
     "@yggdrasil-template/base": "^0.1.2",
     "drizzle-orm": "^0.31.2",
