@@ -9,7 +9,7 @@ import * as T from 'fp-ts/Task';
 import {pipe} from 'fp-ts/function';
 import {TaskOption} from 'fp-ts/TaskOption';
 import {ScheduledEvent, ScheduledEventInDb} from '../application/dto';
-import {trace} from '@yggdrasil-template/base';
+import {tracer} from '@yggdrasil-template/base';
 import {ConsumerError, EventConsume, EventConsumer} from '../application/consumer';
 import * as TE from 'fp-ts/TaskEither';
 
@@ -21,19 +21,19 @@ export function createMainFunctions(dbc: DatabaseController): MainFunctions {
     autoRetry<Date | null>(3)(dbc.getLastConsumedAt),
     TO.match<TO.TaskOption<Date>, Date | null>(
       () => {
-        trace.error('[schedule module] Database error occurred when trying to get magic event');
+        tracer.error('schedule module', 'Database error occurred when trying to get magic event');
         return TO.none;
       },
       (some) => {
         if (some !== null) {
           return TO.some(some);
         }
-        trace.warn('[schedule module] Magic event not found, inserting one');
+        tracer.warn('schedule module', 'Magic event not found, inserting one');
         return pipe(
           autoRetry<void>(3)(dbc.initialMagicEvent),
           TO.match<O.Option<Date>, void>(
             () => {
-              trace.error('[schedule module] Database error occurred when trying to insert the magic event');
+              tracer.error('schedule module', 'Database error occurred when trying to insert the magic event');
               return O.none;
             },
             () => O.some(new Date(1)),

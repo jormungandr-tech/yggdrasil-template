@@ -9,7 +9,7 @@
   "keywords": [],
   "author": "",
   "dependencies": {
-    "@yggdrasil-template/base": "^0.1.1",
+    "@yggdrasil-template/base": "^0.1.2",
     "drizzle-orm": "^0.31.2",
     "fp-ts": "^2.16.6"
   }

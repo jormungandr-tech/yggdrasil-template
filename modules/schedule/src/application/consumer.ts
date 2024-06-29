@@ -2,6 +2,7 @@ import * as TE from 'fp-ts/TaskEither';
 import * as T from 'fp-ts/Task';
 import {ScheduledEvent} from './dto';
 import {pipe} from 'fp-ts/function';
+import {tracer} from '@yggdrasil-template/base';
 
 export interface RetryFunction<EventPayload> {
   (payload: EventPayload): (reason: string) => TE.TaskEither<void, string>;
@@ -28,6 +29,7 @@ export function EventConsume(
   return event => {
     const consumer = consumers.find(consumer => consumer.name === event.consumer);
     if (consumer === undefined) {
+      tracer.warn('schedule module', `${event.consumer} consumer not found. ${event.id} event is ignored.`)
       return TE.right(ConsumerError.NoConsumerMatched);
     }
     return pipe(
@@ -39,7 +41,10 @@ export function EventConsume(
       T.flatMap(
         TE.match<void, TE.TaskEither<void, ConsumerError>, string>(
           () => TE.left(undefined),
-          () => TE.right(ConsumerError.RetryLimitExceeded),
+          () => {
+            tracer.error('schedule module', `Retry limit exceeded for #${event.id} event`);
+            return TE.right(ConsumerError.RetryLimitExceeded);
+          },
         ),
       ),
       T.flatMap(a => a),
