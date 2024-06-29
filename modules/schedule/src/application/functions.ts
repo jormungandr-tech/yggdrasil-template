@@ -9,7 +9,7 @@ import {
   findScheduledTaskById,
   getLastConsumedAt, getTimeoutEvents,
   initialMagicEvent,
-  insertScheduledTask, setEventConsumed, updateLastConsumedAt,
+  insertScheduledTask, setEventConsumed, setEventsConsumed, updateLastConsumedAt,
 } from '../infrastructure/models/scheduledTask';
 import {downcastDbEvent} from './downcast';
 
@@ -36,7 +36,8 @@ export interface DatabaseController {
   getLastConsumedAt: () => TaskOption<Date>;
   updateLastConsumedAt: (time: Date) => TaskOption<void>;
   getTimeoutEvents: (from: Date, to: Date) => TaskOption<ScheduledEventInDb[]>;
-  setEventConsumed: (id: number) => TaskOption<void>;
+  setEventConsumed: (id: number, consumed: boolean) => TaskOption<void>;
+  setEventsConsumed: (ids: number[], consumed: boolean) => TaskOption<void>;
   deleteEventById: (id: number) => TaskOption<void>;
 }
 
@@ -48,8 +49,9 @@ export function createDatabaseController(db: DatabaseAccessor): DatabaseControll
     getLastConsumedAt: () => getLastConsumedAt(db()),
     updateLastConsumedAt: (time: Date) => updateLastConsumedAt(db(), time),
     getTimeoutEvents: (from: Date, to: Date) => getTimeoutEvents(db(), from, to),
-    setEventConsumed: (id: number) => setEventConsumed(db(), id),
-    deleteEventById: (id: number) => deleteEventById(db(), id),
+    setEventConsumed: (id, consumed) => setEventConsumed(db(), id, consumed),
+    setEventsConsumed: (ids, consumed) => setEventsConsumed(db(), ids, consumed),
+    deleteEventById: (id) => deleteEventById(db(), id),
   }
 }
 

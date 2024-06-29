@@ -2,7 +2,7 @@ import {boolean, index, pgTable, serial, text, timestamp} from 'drizzle-orm/pg-c
 import {Postgres} from '@yggdrasil-template/base';
 import {TaskOption, tryCatch} from 'fp-ts/TaskOption';
 import {MAGIC_EVENT_TIMESTAMP, ScheduledEventInDb} from '../../application/dto';
-import {and, eq, gte, lte} from 'drizzle-orm';
+import {and, eq, gte, lte, or} from 'drizzle-orm';
 
 export const scheduledTask = pgTable('ygg_schedule__task', {
   id: serial('id').primaryKey(),
@@ -111,16 +111,31 @@ export function getTimeoutEvents<D extends Postgres>(db: D, from: Date, to: Date
   });
 }
 
-export function setEventConsumed<D extends Postgres>(db: D, id: number): TaskOption<void> {
+export function setEventConsumed<D extends Postgres>(db: D, id: number, consumed: boolean): TaskOption<void> {
   return tryCatch(async () => {
     await db
       .update(scheduledTask)
       .set({
-          consumed: true,
+          consumed,
         }
       )
       .where(
         eq(scheduledTask.id, id),
+      );
+  });
+}
+
+export function setEventsConsumed<D extends Postgres>(db: D, ids: number[], consumed: boolean): TaskOption<void> {
+  return tryCatch(async () => {
+    const conditions = ids.map(id => eq(scheduledTask.id, id));
+    await db
+      .update(scheduledTask)
+      .set({
+          consumed,
+        }
+      )
+      .where(
+        or(...conditions),
       );
   });
 }
