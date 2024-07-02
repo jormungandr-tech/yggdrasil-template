@@ -5,6 +5,7 @@ export {downcastInstance} from './db';
 export {autoRetry} from './expection';
 export {delayTask, delayTaskOption} from './expection';
 export * as tracer from './log';
+export * as message from './result'
 
 export interface GeneralDependencies {
   db: DatabaseAccessor;
