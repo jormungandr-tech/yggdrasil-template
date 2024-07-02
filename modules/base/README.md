@@ -17,3 +17,5 @@ export interface YggdrasilModule<I> {
   (deps: CommonDependencies): I;
 }
 ```
+
+Some modules may use Redis as dependency. In this case, use `ioredis` package.
