@@ -1,6 +1,6 @@
 import {integer, pgTable, real, uuid} from 'drizzle-orm/pg-core';
 import {TaskOption, tryCatch} from 'fp-ts/TaskOption';
-import {Postgres} from '../db';
+import {Postgres} from '@yggdrasil-template/base';
 import {AffiliateStatistics} from '../../application/dto';
 import {eq} from 'drizzle-orm';
 

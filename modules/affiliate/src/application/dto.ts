@@ -1,3 +1,5 @@
+import {TaskOption} from 'fp-ts/TaskOption';
+
 export interface AffiliateStatistics {
   userId: string;
   totalRewards: number;
@@ -20,4 +22,8 @@ export interface AffiliateEvent {
   to: string;
   reward: number;
   rate: number;
+}
+
+export interface AffiliateEventListener<T = void> {
+  (event: AffiliateEvent): TaskOption<T>;
 }

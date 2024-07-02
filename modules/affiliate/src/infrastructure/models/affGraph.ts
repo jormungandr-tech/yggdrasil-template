@@ -1,5 +1,5 @@
 import {index, pgTable, real, serial, timestamp, uuid} from 'drizzle-orm/pg-core';
-import {Postgres} from '../db';
+import {Postgres} from '@yggdrasil-template/base';
 import {TaskOption, tryCatch} from 'fp-ts/TaskOption';
 import {AffiliateGraph} from '../../application/dto';
 import {eq} from 'drizzle-orm';
