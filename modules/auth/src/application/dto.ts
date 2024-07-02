@@ -25,5 +25,8 @@ export interface UserAuthRecord {
 
 export interface SessionValue {
   userId: string;
-  expiresAt: Date;
+}
+
+export function sessionKey(token: string): string {
+  return `ygg_auth__session:${token}`;
 }

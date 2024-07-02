@@ -18,20 +18,6 @@ export const emailProvider = pgTable('ygg_auth__email_provider', {
 
 // =============================================================================
 
-export function emailProviderRecordFactory(
-  email: string,
-  passwordHash: string,
-): Omit<EmailAuthProviderRecord, 'authKey'> {
-  return {
-    email,
-    passwordHash,
-    verifyCode: null,
-    verifyCodeSentAt: null,
-    verified: false,
-    verifiedAt: null
-  };
-}
-
 export function setEmailIsVerified<T extends Postgres>(
   db: T,
   email: string,
