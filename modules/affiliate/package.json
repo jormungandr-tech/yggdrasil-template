@@ -1,13 +1,14 @@
 {
   "name": "@yggdrasil-template/affiliate",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
+  "version": "0.1.0",
+  "description": "Affiliate module for Yggdrasil.",
+  "license": "GPL-3.0",
+  "main": "src/index.ts",
+  "keywords": [
+    "yggdrasil-template"
+  ],
+  "author": "jormungandr-tech",
+  "repository": "https://github.com/jormungandr-tech/yggdrasil-template",
   "dependencies": {
     "@yggdrasil-template/base": "0.1.3",
     "drizzle-orm": "^0.31.2",

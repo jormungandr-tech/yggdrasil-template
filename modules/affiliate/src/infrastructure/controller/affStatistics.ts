@@ -7,5 +7,6 @@ export function getStatisticsDbFunctions(db: DatabaseAccessor): AffStatisticsDbF
     insertAffiliateStatistics: (userId, rate) => M.insertAffiliateStatistics(db(), userId, rate),
     findAffiliateStatistics: (userId) => M.findAffiliateStatistics(db(), userId),
     deleteAffiliateStatistics: (userId) => M.deleteAffiliateStatistics(db(), userId),
+    updateAffiliateStatistics: (userId, totalRewards, withdrawnRewards, countReferrals) => M.updateAffiliateStatistics(db(), userId, totalRewards, withdrawnRewards, countReferrals),
   };
 }

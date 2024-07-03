@@ -49,3 +49,18 @@ export function deleteAffiliateStatistics<D extends Postgres>(db: D, userId: str
       );
   });
 }
+
+export function updateAffiliateStatistics<D extends Postgres>(db: D, userId: string, totalRewards: number, withdrawnRewards: number, countReferrals: number): TaskOption<void> {
+  return tryCatch(async () => {
+    await db
+      .update(affStatistics)
+      .set({
+        totalRewards,
+        withdrawnRewards,
+        countReferrals,
+      })
+      .where(
+        eq(affStatistics.userId, userId),
+      );
+  });
+}

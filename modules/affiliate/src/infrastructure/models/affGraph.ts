@@ -53,14 +53,16 @@ export function findAffiliateRelationById<D extends Postgres>(db: D, id: number)
   });
 }
 
-export function findAffiliateRelationByFrom<D extends Postgres>(db: D, from: string): TaskOption<AffiliateGraph[]> {
+export function findAffiliateRelationByFrom<D extends Postgres>(db: D, from: string, limit: number, offset: number): TaskOption<AffiliateGraph[]> {
   return tryCatch(async () => {
     return db
       .select()
       .from(affGraph)
       .where(
         eq(affGraph.from, from),
-      );
+      )
+      .limit(limit)
+      .offset(offset);
   });
 }
 
