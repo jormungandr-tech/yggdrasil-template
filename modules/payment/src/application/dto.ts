@@ -4,20 +4,6 @@ export interface UserBalanceRecord {
   reservedBalance: string;
 }
 
-export type OrderStatus = 'pending' | 'paid' | 'completed' | 'cancelled';
-
-export interface OrderRecord<T> {
-  orderId: string;
-  content: T;
-  status: OrderStatus;
-  userId: string;
-  amount: string;
-  createAt: Date;
-  paidAt: Date | null;
-  completedAt: Date | null;
-  isDeleted: boolean;
-}
-
 export type InvoiceStatus = 'unpaid' | 'paid' | 'cancelled' | 'fraud'
 
 export interface InvoiceRecord {

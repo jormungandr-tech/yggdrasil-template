@@ -1,5 +1,4 @@
 import {index, numeric, pgEnum, pgTable, text, timestamp, uuid} from 'drizzle-orm/pg-core';
-import {ordersFunc} from './orders';
 import {TaskOption, tryCatch} from 'fp-ts/TaskOption';
 import {Postgres} from '../db';
 import {InvoiceRecord, InvoiceStatus} from '../../application/dto';
@@ -9,7 +8,7 @@ export const invoiceStatusEnum = pgEnum('ygg_payment__invoice_status', ['unpaid'
 
 export const invoice = pgTable('ygg_payment__invoice', {
   invoiceId: uuid('invoice_id').notNull().primaryKey().defaultRandom(),
-  orderId: uuid('order_id').notNull().references(() => ordersFunc<unknown>().orderId),
+  orderId: uuid('order_id').notNull(),
   amount: numeric('amount').notNull(),
   externalProductName: text('external_product_name').notNull(),
   paymentMethod: text('payment_method'),
