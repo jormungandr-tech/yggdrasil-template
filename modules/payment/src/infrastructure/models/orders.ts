@@ -1,5 +1,5 @@
 import {boolean, index, json, numeric, pgEnum, pgTable, timestamp, uuid} from 'drizzle-orm/pg-core';
-import {Postgres} from '../db';
+import {Postgres} from '@yggdrasil-template/base';
 import {OrderRecord} from '../../application/dto';
 import {TaskOption, tryCatch} from 'fp-ts/TaskOption';
 import {eq} from 'drizzle-orm';
