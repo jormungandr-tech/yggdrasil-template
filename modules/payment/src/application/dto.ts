@@ -1,3 +1,5 @@
+import {PaymentMethodProviderName} from '../infrastructure/external/paymentProviderInterface';
+
 export interface UserBalanceRecord {
   userId: string;
   availableBalance: string;
@@ -27,13 +29,9 @@ export interface UserBalanceChangeLog {
   reason: string;
 }
 
-export enum PaymentMethodProviderEnum {
-  Epay = 'epay',
-}
-
 export interface PaymentMethodProviderType {
   id: number;
-  providerType: PaymentMethodProviderEnum | string;
+  providerType: PaymentMethodProviderName | string;
   enabled: boolean;
   account: string;
 }

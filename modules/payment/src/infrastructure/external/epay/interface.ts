@@ -3,6 +3,11 @@ export type SignedRequest<T extends object> = T & {
   sign_type: 'MD5';
 }
 
+export interface EpayConfig {
+  pid: number;
+  key: string;
+}
+
 export type SupportedPaymentMethod = 'alipay' | 'wxpay' | 'usdt'
 
 interface CheckoutPropsBase {
