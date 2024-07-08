@@ -21,7 +21,7 @@ export interface OrderRecord<C> {
   isDeleted: boolean;
 }
 
-export type InvoiceStatus = 'unpaid' | 'paid' | 'cancelled' | 'fraud'
+export type InvoiceStatus = 'unpaid' | 'paid' | 'cancelled' | 'fraud' | 'refunded';
 
 export interface InvoiceRecord {
   invoiceId: string;

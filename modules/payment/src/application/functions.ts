@@ -1,7 +1,7 @@
 import {TaskOption} from 'fp-ts/TaskOption';
 import {
   InvoiceRecord,
-  InvoiceStatus,
+  InvoiceStatus, OrderRecord, OrderStatus,
   PaymentMethodProviderType,
   UserBalanceChangeLog,
   UserBalanceChangeType,
@@ -49,5 +49,20 @@ export interface MethodProviderDbFunctions {
   deleteMethodProvider(id: number): TaskOption<void>;
 }
 
-export interface PaymentDbFunctions extends InvoiceDbFunctions, UserBalanceDbFunctions, UserBalanceChangeLogDbFunctions, MethodProviderDbFunctions {}
+export interface OrderDbFunctions {
+  insertOrder<C>(userId: string, amount: string, productName: string, content: C): TaskOption<OrderRecord<C>>;
+  findOrderByOrderId<C>(orderId: string): TaskOption<OrderRecord<C>>;
+  findOrderByUserId(userId: string): TaskOption<OrderRecord<unknown>[]>;
+  updateOrderStatus(orderId: string, status: OrderStatus): TaskOption<void>;
+  fakeDeleteOrder(orderId: string): TaskOption<void>;
+  deleteOrder(orderId: string): TaskOption<void>;
+}
+
+export interface PaymentDbFunctions extends
+  InvoiceDbFunctions,
+  UserBalanceDbFunctions,
+  UserBalanceChangeLogDbFunctions,
+  OrderDbFunctions,
+  MethodProviderDbFunctions
+{}
 

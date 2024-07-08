@@ -4,7 +4,7 @@ import {Postgres} from '@yggdrasil-template/base';
 import {InvoiceRecord, InvoiceStatus} from '../../application/dto';
 import {eq} from 'drizzle-orm';
 
-export const invoiceStatusEnum = pgEnum('ygg_payment__invoice_status', ['unpaid', 'paid', 'cancelled', 'fraud'])
+export const invoiceStatusEnum = pgEnum('ygg_payment__invoice_status', ['unpaid', 'paid', 'cancelled', 'fraud', 'refunded'])
 
 export const invoice = pgTable('ygg_payment__invoice', {
   invoiceId: uuid('invoice_id').notNull().primaryKey().defaultRandom(),

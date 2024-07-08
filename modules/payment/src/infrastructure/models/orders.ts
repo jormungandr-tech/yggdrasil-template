@@ -1,6 +1,6 @@
 import {boolean, index, json, numeric, pgEnum, pgTable, text, timestamp, uuid} from 'drizzle-orm/pg-core';
 import {Postgres} from '@yggdrasil-template/base';
-import {OrderRecord} from '../../application/dto';
+import {OrderRecord, OrderStatus} from '../../application/dto';
 import {TaskOption, tryCatch} from 'fp-ts/TaskOption';
 import {eq} from 'drizzle-orm';
 
@@ -79,7 +79,7 @@ export function findOrderByUserId<D extends Postgres>(
 export function updateOrderStatus<D extends Postgres>(
   db: D,
   orderId: string,
-  status: 'pending' | 'paid' | 'completed' | 'cancelled'
+  status: OrderStatus
 ): TaskOption<void> {
   return tryCatch(() => {
     switch (status) {
