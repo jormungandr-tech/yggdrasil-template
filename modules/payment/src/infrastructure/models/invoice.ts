@@ -1,6 +1,6 @@
 import {index, numeric, pgEnum, pgTable, text, timestamp, uuid} from 'drizzle-orm/pg-core';
 import {TaskOption, tryCatch} from 'fp-ts/TaskOption';
-import {Postgres} from '../db';
+import {Postgres} from '@yggdrasil-template/base';
 import {InvoiceRecord, InvoiceStatus} from '../../application/dto';
 import {eq} from 'drizzle-orm';
 
@@ -46,6 +46,38 @@ export function updateInvoiceStatus<T extends Postgres>(
       .update(invoice)
       .set({
         status,
+        updateAt: new Date(),
+      })
+      .where(eq(invoice.invoiceId, invoiceId))
+  })
+}
+
+export function updateInvoicePaymentMethod<T extends Postgres>(
+  db: T,
+  invoiceId: string,
+  paymentMethod: string
+): TaskOption<void> {
+  return tryCatch(() => {
+    return db
+      .update(invoice)
+      .set({
+        paymentMethod,
+        updateAt: new Date(),
+      })
+      .where(eq(invoice.invoiceId, invoiceId))
+  })
+}
+
+export function updateInvoiceAmount<T extends Postgres>(
+  db: T,
+  invoiceId: string,
+  amount: string
+): TaskOption<void> {
+  return tryCatch(() => {
+    return db
+      .update(invoice)
+      .set({
+        amount,
         updateAt: new Date(),
       })
       .where(eq(invoice.invoiceId, invoiceId))

@@ -1,5 +1,5 @@
 import {numeric, pgTable, uuid} from 'drizzle-orm/pg-core';
-import {Postgres} from '../db';
+import {Postgres} from '@yggdrasil-template/base';
 import {TaskOption, tryCatch} from 'fp-ts/TaskOption';
 import {eq} from 'drizzle-orm';
 import {UserBalanceRecord} from '../../application/dto';

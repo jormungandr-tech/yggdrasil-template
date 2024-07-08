@@ -1,5 +1,5 @@
 import {index, numeric, pgEnum, pgTable, serial, text, uuid} from 'drizzle-orm/pg-core';
-import {Postgres} from '../db';
+import {Postgres} from '@yggdrasil-template/base';
 import {UserBalanceChangeLog, UserBalanceChangeType} from '../../application/dto';
 import {TaskOption, tryCatch} from 'fp-ts/TaskOption';
 import {eq} from 'drizzle-orm';
@@ -40,12 +40,19 @@ export function insertUserBalanceChange<T extends Postgres>(
   })
 }
 
-export function findUserBalanceChangeByUserId<T extends Postgres>(db: T, userId: string): TaskOption<UserBalanceChangeLog[]> {
+export function findUserBalanceChangeByUserId<T extends Postgres>(
+  db: T,
+  userId: string,
+  limit: number,
+  offset: number
+): TaskOption<UserBalanceChangeLog[]> {
   return tryCatch(() => {
     return db
       .select()
       .from(userBalanceChange)
-      .where(eq(userBalanceChange.userId, userId));
+      .where(eq(userBalanceChange.userId, userId))
+      .limit(limit)
+      .offset(offset);
   })
 }
 
@@ -59,10 +66,18 @@ export function findUserBalanceChangeById<T extends Postgres>(db: T, id: number)
   })
 }
 
-export function deleteUserBalanceChange<T extends Postgres>(db: T, id: number): TaskOption<void> {
+export function deleteOneUserBalanceChange<T extends Postgres>(db: T, id: number): TaskOption<void> {
   return tryCatch(() => {
     return db
       .delete(userBalanceChange)
       .where(eq(userBalanceChange.id, id));
+  })
+}
+
+export function deleteAllUserBalanceChange<T extends Postgres>(db: T, userId: string): TaskOption<void> {
+  return tryCatch(() => {
+    return db
+      .delete(userBalanceChange)
+      .where(eq(userBalanceChange.userId, userId));
   })
 }

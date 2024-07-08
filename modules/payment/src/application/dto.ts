@@ -26,3 +26,14 @@ export interface UserBalanceChangeLog {
   type: UserBalanceChangeType;
   reason: string;
 }
+
+export enum PaymentMethodProviderEnum {
+  Epay = 'epay',
+}
+
+export interface PaymentMethodProviderType {
+  id: number;
+  providerType: PaymentMethodProviderEnum | string;
+  enabled: boolean;
+  account: string;
+}
