@@ -8,9 +8,10 @@ export interface UserBalanceRecord {
 
 export type OrderStatus = 'pending' | 'paid' | 'completed' | 'cancelled'
 
-export interface OrderRecord<T> {
+export interface OrderRecord<C> {
   orderId: string;
-  content: T;
+  productName: string;
+  content: C;
   status: OrderStatus;
   userId: string;
   amount: string;

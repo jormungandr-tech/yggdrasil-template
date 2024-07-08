@@ -1,4 +1,4 @@
-import {boolean, index, json, numeric, pgEnum, pgTable, timestamp, uuid} from 'drizzle-orm/pg-core';
+import {boolean, index, json, numeric, pgEnum, pgTable, text, timestamp, uuid} from 'drizzle-orm/pg-core';
 import {Postgres} from '@yggdrasil-template/base';
 import {OrderRecord} from '../../application/dto';
 import {TaskOption, tryCatch} from 'fp-ts/TaskOption';
@@ -6,9 +6,10 @@ import {eq} from 'drizzle-orm';
 
 export const orderStatusEnum = pgEnum('ygg_payment__order_status', ['pending', 'paid', 'completed', 'cancelled'])
 
-export const ordersFunc = <C>() => pgTable('ygg_payment__orders', {
+export const orders =  pgTable('ygg_payment__orders', {
   orderId: uuid('order_id').notNull().primaryKey().defaultRandom(),
-  content: json('content').notNull().$type<C>(),
+  productName: text('product_name').notNull(),
+  content: json('content').notNull(),
   status: orderStatusEnum('status').notNull().default('pending'),
   userId: uuid('user_id').notNull(),
   amount: numeric('amount').notNull(),
@@ -24,15 +25,16 @@ export function insertOrder<D extends Postgres, C>(
   db: D,
   userId: string,
   amount: string,
+  productName: string,
   content: C
 ): TaskOption<OrderRecord<C>> {
   return tryCatch(() => {
-    const orders = ordersFunc<C>();
     return db
       .insert(orders)
       .values({
         userId,
         amount,
+        productName,
         content
       });
   })
@@ -43,7 +45,6 @@ export function findOrderByOrderId<D extends Postgres, C>(
   orderId: string
 ): TaskOption<OrderRecord<C>> {
   return tryCatch(async () => {
-    const orders = ordersFunc<C>();
     const result = await db
       .select()
       .from(orders)
@@ -53,17 +54,19 @@ export function findOrderByOrderId<D extends Postgres, C>(
     if (result.length === 0) {
       return Promise.reject('Order not found');
     } else {
-      return result[0];
+      return {
+        ...result[0],
+        content: result[0].content as C
+      };
     }
   })
 }
 
-export function findOrderByUserId<D extends Postgres, C>(
+export function findOrderByUserId<D extends Postgres>(
   db: D,
   userId: string
-): TaskOption<OrderRecord<C>[]> {
+): TaskOption<OrderRecord<unknown>[]> {
   return tryCatch(() => {
-    const orders = ordersFunc<C>();
     return db
       .select()
       .from(orders)
@@ -73,13 +76,12 @@ export function findOrderByUserId<D extends Postgres, C>(
   })
 }
 
-export function updateOrderStatus<D extends Postgres, C>(
+export function updateOrderStatus<D extends Postgres>(
   db: D,
   orderId: string,
   status: 'pending' | 'paid' | 'completed' | 'cancelled'
 ): TaskOption<void> {
   return tryCatch(() => {
-    const orders = ordersFunc<C>();
     switch (status) {
       case 'pending':
         return db
@@ -118,12 +120,11 @@ export function updateOrderStatus<D extends Postgres, C>(
   })
 }
 
-export function fakeDeleteOrder<D extends Postgres, C>(
+export function fakeDeleteOrder<D extends Postgres>(
   db: D,
   orderId: string
 ): TaskOption<void> {
   return tryCatch(() => {
-    const orders = ordersFunc<C>();
     return db
       .update(orders)
       .set({
@@ -133,12 +134,11 @@ export function fakeDeleteOrder<D extends Postgres, C>(
   })
 }
 
-export function deleteOrderByOrderId<D extends Postgres, C>(
+export function deleteOrderByOrderId<D extends Postgres>(
   db: D,
   orderId: string
 ): TaskOption<void> {
   return tryCatch(() => {
-    const orders = ordersFunc<C>();
     return db
       .delete(orders)
       .where(eq(orders.orderId, orderId));
