@@ -1,5 +1,12 @@
 import {TaskOption} from 'fp-ts/TaskOption';
-import {InvoiceRecord, InvoiceStatus, UserBalanceChangeLog, UserBalanceChangeType, UserBalanceRecord} from './dto';
+import {
+  InvoiceRecord,
+  InvoiceStatus,
+  PaymentMethodProviderType,
+  UserBalanceChangeLog,
+  UserBalanceChangeType,
+  UserBalanceRecord,
+} from './dto';
 
 export interface InvoiceDbFunctions {
   insertInvoice(orderId: string, amount: string, externalProductName: string): TaskOption<void>;
@@ -32,5 +39,15 @@ export interface UserBalanceChangeLogDbFunctions {
   deleteAllUserBalanceChangeLog(userId: string): TaskOption<void>;
 }
 
-export interface PaymentDbFunctions extends InvoiceDbFunctions, UserBalanceDbFunctions, UserBalanceChangeLogDbFunctions {}
+export interface MethodProviderDbFunctions {
+  insertMethodProvider(providerType: string, account: string): TaskOption<void>;
+  setMethodProviderEnabled(id: number, enabled: boolean): TaskOption<void>;
+  updateMethodProviderAccount(id: number, account: string): TaskOption<void>;
+  findMethodProviderById(id: number): TaskOption<PaymentMethodProviderType>;
+  getAllEnabledMethodProviders(): TaskOption<PaymentMethodProviderType[]>;
+  getAllEnabledMethodProvidersByType(providerType: string): TaskOption<PaymentMethodProviderType[]>;
+  deleteMethodProvider(id: number): TaskOption<void>;
+}
+
+export interface PaymentDbFunctions extends InvoiceDbFunctions, UserBalanceDbFunctions, UserBalanceChangeLogDbFunctions, MethodProviderDbFunctions {}
 
