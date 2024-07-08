@@ -16,25 +16,25 @@ export enum PaymentMethodProviderName {
 }
 
 export interface PaymentCheckoutRequest<Extra = undefined> {
-  callbackUrl: string;
-  redirectUrl: string;
-  amount: number;
-  channel: string;
-  invoiceId: string;
-  productName: string;
+  readonly callbackUrl: string;
+  readonly redirectUrl: string;
+  readonly amount: number;
+  readonly channel: string;
+  readonly invoiceId: string;
+  readonly productName: string;
   extra: Extra;
 }
 
 export interface ExternalPaymentResult {
-  success: boolean;
-  failReason?: string;
-  invoiceId: string;
+  readonly success: boolean;
+  readonly failReason?: string;
+  readonly invoiceId: string;
 }
 
 export interface PaymentMethodProvider<Name extends PaymentMethodProviderName, Account, CheckoutExtra = undefined> {
-  type: Name;
+  readonly type: Name;
   accountDeserializer: (account: string) => Option<Account>;
-  supportedChannels: string[];
+  readonly supportedChannels: readonly string [];
   checkout: (req: PaymentCheckoutRequest<CheckoutExtra>, account: Account) => TaskOption<string>;
   createPaymentResultListener: (
     target: string,
