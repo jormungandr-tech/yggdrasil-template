@@ -1,12 +1,13 @@
-export type SignedRequest<T extends object> = T & {
+export interface CommonObj {
+  [key: string]: unknown;
+}
+
+export type SignedRequest<T extends CommonObj> = T & {
   sign: string;
   sign_type: 'MD5';
 }
 
-export interface EpayConfig {
-  pid: number;
-  key: string;
-}
+export const supportedChannels = ['alipay', 'wxpay', 'usdt'] as const;
 
 export type SupportedPaymentMethod = 'alipay' | 'wxpay' | 'usdt'
 
@@ -48,7 +49,7 @@ interface CheckoutPropsBase {
  */
 export interface PageRedirectCheckoutQuery extends CheckoutPropsBase {}
 
-export interface ServerSideCheckoutBody extends CheckoutPropsBase {
+export interface CheckoutExtra {
   /**
    * @description The IP address of the user
    */
@@ -57,7 +58,24 @@ export interface ServerSideCheckoutBody extends CheckoutPropsBase {
   device: 'pc' | 'mobile' | 'qq' | 'wechat' | 'alipay';
 }
 
-interface ResultCallbackBase {
+export interface ServerSideCheckoutBody extends CheckoutPropsBase, CommonObj, CheckoutExtra {
+}
+
+export interface ServerSideCheckoutResponse {
+  code: number;
+  msg?: string;
+
+  /**
+   * @description The order ID in ePay system
+   */
+  trade_no: string;
+
+  payurl?: string;
+  qrcode?: string;
+  urlscheme?: string;
+}
+
+interface ResultCallbackBase extends CommonObj {
   /**
    * @description your ePay ID
    */

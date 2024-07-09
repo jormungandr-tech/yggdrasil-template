@@ -1,6 +1,8 @@
 import {Option} from 'fp-ts/Option';
 import * as O from 'fp-ts/Option';
 import {TaskOption} from 'fp-ts/TaskOption';
+import {Task} from 'fp-ts/Task';
+import {Either} from 'fp-ts/Either';
 
 export function parseProviderName(name: string): Option<PaymentMethodProviderName> {
   switch (name) {
@@ -25,19 +27,26 @@ export interface PaymentCheckoutRequest<Extra = undefined> {
   extra: Extra;
 }
 
-export interface ExternalPaymentResult {
-  readonly success: boolean;
-  readonly failReason?: string;
+export type ExternalPaymentResult = Either<ExternalPaymentFailResult, ExternalPaymentSuccessResult>
+
+export interface ExternalPaymentSuccessResult {
+  readonly invoiceId: string;
+  readonly externalOrderId: string;
+}
+
+export interface ExternalPaymentFailResult {
+  readonly reason: string;
   readonly invoiceId: string;
 }
 
-export interface PaymentMethodProvider<Name extends PaymentMethodProviderName, Account, CheckoutExtra = undefined> {
+export interface PaymentMethodProvider<Name extends PaymentMethodProviderName, Account, CallbackBody, CheckoutExtra = undefined> {
   readonly type: Name;
   accountDeserializer: (account: string) => Option<Account>;
   readonly supportedChannels: readonly string [];
-  checkout: (req: PaymentCheckoutRequest<CheckoutExtra>, account: Account) => TaskOption<string>;
+  checkout: (req: PaymentCheckoutRequest<CheckoutExtra>, account: Account) => Task<ExternalPaymentResult>;
   createPaymentResultListener: (
-    target: string,
+    target: Account,
     callback: (result: ExternalPaymentResult) => TaskOption<void>
   ) => (req: ExternalPaymentResult) => TaskOption<void>;
+  parseCallbackRequestBody: (body: CallbackBody, account: Account) => Option<ExternalPaymentResult>;
 }
