@@ -1,6 +1,6 @@
 {
   "name": "@yggdrasil-template/shop",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Micro shop module for yggdrasil",
   "main": "src/index.ts",
   "license": "GPL-3.0",
