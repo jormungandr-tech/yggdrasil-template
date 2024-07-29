@@ -22,5 +22,6 @@
   },
   "lint-staged": {
     "*.ts": "eslint --cache --fix"
-  }
+  },
+  "version": "0.0.1"
 }
