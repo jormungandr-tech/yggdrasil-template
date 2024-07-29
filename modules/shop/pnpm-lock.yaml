@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@yggdrasil-template/base':
-        specifier: ^0.2.0
-        version: 0.2.0
+        specifier: ^0.3.0
+        version: 0.3.0
       drizzle-orm:
         specifier: ^0.31.4
         version: 0.31.4
@@ -23,8 +23,8 @@ packages:
   '@ioredis/commands@1.2.0':
     resolution: {integrity: sha512-Sx1pU8EM64o2BrqNpEO1CNLtKQwyhuXuqyfH7oGKCk+1a33d2r5saW8zNwm3j6BTExtjrv2BxTgzzkMwts6vGg==}
 
-  '@yggdrasil-template/base@0.2.0':
-    resolution: {integrity: sha512-nT2UF17zaUAmM5Aakvfig1MFcdtIAV85Re38XgUfoj7CEPcbuU//1TRsiuuFZFcLw5QoNYrYTNuy3T05bV5mbA==}
+  '@yggdrasil-template/base@0.3.0':
+    resolution: {integrity: sha512-hsIOsnbjBq98qsNWkfGSkqKiV331xH39VlpELMjKngOriQka2CV+Oeb65a1Iww8J57Y4TlYTwX5iO4xyw5xMpQ==}
 
   chalk@5.3.0:
     resolution: {integrity: sha512-dLitG79d+GV1Nb/VYcCDFivJeK1hiukt9QjRNVOsUtTy1rR1YJsmpGGTZ3qJos+uw7WmWF4wUwBd9jxjocFC2w==}
@@ -167,7 +167,7 @@ snapshots:
 
   '@ioredis/commands@1.2.0': {}
 
-  '@yggdrasil-template/base@0.2.0':
+  '@yggdrasil-template/base@0.3.0':
     dependencies:
       chalk: 5.3.0
       drizzle-orm: 0.31.4
