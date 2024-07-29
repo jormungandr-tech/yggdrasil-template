@@ -3,6 +3,7 @@ import {TaskOption} from 'fp-ts/TaskOption';
 
 export interface DbFunctions {
   insertProduction<C>(productionItem: Omit<Production<C>, 'id'>): TaskOption<Production<C>>;
+  listAllProductions(limit: number, offset: number): TaskOption<Production<unknown>[]>;
   findProductionById<C>(id: number): TaskOption<Production<C>>;
   findProductionByExactName(exactName: string): TaskOption<Production<unknown>[]>;
   findProductionByFuseName(fuseName: string, limit: number, offset: number): TaskOption<Production<unknown>[]>;

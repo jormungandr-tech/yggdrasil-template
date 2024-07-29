@@ -29,6 +29,16 @@ export function insertProduction<D extends Postgres, C>(db: D, productionItem: O
   });
 }
 
+export function listAllProductions<D extends Postgres>(db: D, limit: number, offset: number): TaskOption<Production<unknown>[]> {
+  return tryCatch(() => {
+    return db
+      .select()
+      .from(production)
+      .limit(limit)
+      .offset(offset);
+  });
+}
+
 export function findProductionById<D extends Postgres, C>(db: D, id: number): TaskOption<Production<C>> {
   return tryCatch(async () => {
     const result = await db

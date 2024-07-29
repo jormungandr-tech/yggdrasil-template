@@ -5,6 +5,7 @@ import * as M from '../models/production'
 export function getDbFunctions(db: DatabaseAccessor): DbFunctions {
   return {
     insertProduction: (productionItem) => M.insertProduction(db(), productionItem),
+    listAllProductions: (limit, offset) => M.listAllProductions(db(), limit, offset),
     findProductionById: (id) => M.findProductionById(db(), id),
     findProductionByExactName: (exactName) => M.findProductionByExactName(db(), exactName),
     findProductionByFuseName: (fuseName, limit, offset) => M.findProductionByFuseName(db(), fuseName, limit, offset),
