@@ -1,9 +1,11 @@
-import {NeonDatabase} from 'drizzle-orm/neon-serverless/driver';
-import {PostgresJsDatabase} from 'drizzle-orm/postgres-js/driver';
 import {IO} from 'fp-ts/IO';
 import Redis from 'ioredis';
 
-export type Postgres = NeonDatabase | PostgresJsDatabase;
+import { drizzle as pgJsDrizzle } from 'drizzle-orm/postgres-js';
+import { drizzle as neonDrizzle } from 'drizzle-orm/neon-http';
+import { drizzle as vercelDrizzle } from 'drizzle-orm/vercel-postgres';
+
+export type Postgres = ReturnType<typeof pgJsDrizzle> | ReturnType<typeof neonDrizzle> | ReturnType<typeof vercelDrizzle>;
 
 export type DatabaseAccessor = IO<Postgres>
 

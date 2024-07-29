@@ -9,6 +9,9 @@ export * as message from './result'
 
 export interface GeneralDependencies {
   db: DatabaseAccessor;
+}
+
+export interface RedisDependencies extends GeneralDependencies {
   redis: RedisAccessor;
 }
 
