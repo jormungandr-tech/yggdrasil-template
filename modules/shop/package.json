@@ -1,6 +1,6 @@
 {
   "name": "@yggdrasil-template/shop",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Micro shop module for yggdrasil",
   "main": "src/index.ts",
   "license": "GPL-3.0",
@@ -10,8 +10,11 @@
   "author": "jormungandr-tech",
   "repository": "https://github.com/jormungandr-tech/yggdrasil-template",
   "dependencies": {
-    "@yggdrasil-template/base": "^0.3.0",
-    "drizzle-orm": "^0.31.4",
+    "@yggdrasil-template/base": "^0.3.4",
+    "drizzle-orm": "^0.32.1",
     "fp-ts": "^2.16.9"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.23.0"
   }
 }
