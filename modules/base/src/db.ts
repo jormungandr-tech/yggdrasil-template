@@ -1,10 +1,9 @@
 import {IO} from 'fp-ts/IO';
 import Redis from 'ioredis';
 
-import { drizzle as pgJsDrizzle } from 'drizzle-orm/postgres-js';
-import { drizzle as neonDrizzle } from 'drizzle-orm/neon-http';
+import { drizzle } from 'drizzle-orm/postgres-js';
 
-export type Postgres = ReturnType<typeof pgJsDrizzle> | ReturnType<typeof neonDrizzle>;
+export type Postgres = ReturnType<typeof drizzle>;
 
 export type DatabaseAccessor = IO<Postgres>
 
