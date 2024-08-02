@@ -11,9 +11,12 @@
   "repository": "https://github.com/jormungandr-tech/yggdrasil-template",
   "dependencies": {
     "@types/node": "^20.14.13",
-    "@yggdrasil-template/base": "0.2.0",
+    "@yggdrasil-template/base": "0.3.4",
     "axios": "^1.7.2",
-    "drizzle-orm": "^0.31.4",
+    "drizzle-orm": "^0.32.1",
     "fp-ts": "^2.16.9"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.23.0"
   }
 }
