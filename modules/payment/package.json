@@ -1,6 +1,6 @@
 {
   "name": "@yggdrasil-template/payment",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Payment module for Yggdrasil.",
   "license": "GPL-3.0",
   "main": "src/index.ts",
