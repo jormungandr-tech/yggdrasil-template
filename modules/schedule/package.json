@@ -1,6 +1,6 @@
 {
   "name": "@yggdrasil-template/schedule",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "description": "Schedule an event to be executed at a specific time.",
   "license": "GPL-3.0",
   "main": "src/index.ts",
@@ -10,8 +10,11 @@
   "author": "jormungandr-tech",
   "repository": "https://github.com/jormungandr-tech/yggdrasil-template",
   "dependencies": {
-    "@yggdrasil-template/base": "^0.2.0",
-    "drizzle-orm": "^0.31.4",
+    "@yggdrasil-template/base": "^0.3.4",
+    "drizzle-orm": "^0.32.1",
     "fp-ts": "^2.16.9"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.23.0"
   }
 }

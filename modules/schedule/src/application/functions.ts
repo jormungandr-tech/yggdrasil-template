@@ -10,7 +10,7 @@ import {
   getLastConsumedAt, getEventsInTime,
   initialMagicEvent,
   insertScheduledTask, setEventConsumed, setEventsConsumed, updateLastConsumedAt,
-} from '../infrastructure/models/scheduledTask';
+} from '../infrastructure/controller/scheduledTask';
 import {downcastDbEvent} from './downcast';
 
 export interface ScheduledTaskToAdd {

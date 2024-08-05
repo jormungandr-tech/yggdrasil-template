@@ -1,19 +1,8 @@
-import {boolean, index, pgTable, serial, text, timestamp} from 'drizzle-orm/pg-core';
 import {Postgres} from '@yggdrasil-template/base';
 import {TaskOption, tryCatch} from 'fp-ts/TaskOption';
 import {MAGIC_EVENT_TIMESTAMP, ScheduledEventInDb} from '../../application/dto';
 import {and, eq, gte, lte, or} from 'drizzle-orm';
-
-export const scheduledTask = pgTable('ygg_schedule__task', {
-  id: serial('id').primaryKey(),
-  time: timestamp('time').notNull(),
-  payload: text('payload').notNull(),
-  consumed: boolean('consumed').notNull().default(false),
-  consumer: text('consumer').notNull(),
-  createdAt: timestamp('created_at').notNull().defaultNow(),
-}, table => ({
-  timeIndex: index('time_index').on(table.time),
-}))
+import {scheduledTask} from '../schema/scheduledTask';
 
 export function insertScheduledTask<D extends Postgres>(db: D, time: Date, payload: string, consumer: string): TaskOption<void> {
   return tryCatch(async () => {
