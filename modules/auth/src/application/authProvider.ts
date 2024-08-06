@@ -1,4 +1,4 @@
-import {Postgres} from '../infrastructure/db';
+import {Postgres} from '@yggdrasil-template/base';
 import {TaskOption} from 'fp-ts/TaskOption';
 import {UserAuthRecord} from './dto';
 import {IO} from 'fp-ts/IO';
